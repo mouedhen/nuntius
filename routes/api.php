@@ -22,4 +22,25 @@ Route::group([
         });
     });
 
+    Route::group([
+        'middleware' => 'auth:api',
+    ], function () {
+
+        Route::post('register', 'API\UserController@register')->name('api:auth:register');
+        Route::get('details', 'API\UserController@details')->name('api:auth:details');
+
+    });
+
+    Route::group([
+        'middleware' => 'auth:api',
+    ], function () {
+
+        Route::apiResources([
+            'users' =>  'API\UserController'
+        ], [
+            'except' => ['create', 'edit',]
+        ]);
+
+    });
+
 });
