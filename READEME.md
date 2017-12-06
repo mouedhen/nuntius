@@ -7,7 +7,7 @@ Application de reporting pour les prestataires de services agricoles
 ```
 $ composer install
 $ npm install
-
+$ php artisan passport:keys
 ```
 ## Credit
 
