@@ -10,7 +10,16 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
+use \Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/login', function () {
+    return 'login';
+})->name('login');
+
+Route::get('/logout', function () {
+    return 'logout';
+})->name('logout');
