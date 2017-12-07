@@ -6,24 +6,30 @@
     "type": "project",
     "require": {
         "php": ">=7.1.0",
-        "fideloper/proxy": "~3.3",
-        "laravel/framework": "5.5.*",
-        "laravel/passport": "^4.0",
-        "laravel/tinker": "~1.0"
+        "fideloper/proxy": "~3.3.4",
+        "laravel/framework": "5.5.23",
+        "laravel/passport": "^4.0.3",
+        "laravel/tinker": "~1.0.2"
     },
     "require-dev": {
-        "filp/whoops": "~2.0",
-        "fzaninotto/faker": "~1.4",
+        "filp/whoops": "~2.1.14",
+        "fzaninotto/faker": "~1.7.1",
         "mockery/mockery": "~1.0",
-        "phpunit/phpunit": "~6.0"
+        "phpunit/phpunit": "~6.5.2"
     },
     "autoload": {
         "classmap": [
             "database/seeds",
-            "database/factories"
+            "database/factories",
+            "packages/selenkeys/contacts/src/database/seeds",
+            "packages/selenkeys/contacts/src/database/factories"
         ],
         "psr-4": {
-            "App\\": "app/"
+            "App\\": "app/",
+            "Selenkeys\\Core\\": "packages/selenkeys/core/src",
+            "Selenkeys\\Core\\App\\": "packages/selenkeys/core/src/app",
+            "Selenkeys\\Contacts\\": "packages/selenkeys/contacts/src",
+            "Selenkeys\\Contacts\\App\\": "packages/selenkeys/contacts/src/app"
         }
     },
     "autoload-dev": {

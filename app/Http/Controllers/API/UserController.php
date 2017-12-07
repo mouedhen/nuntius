@@ -5,7 +5,7 @@ namespace App\Http\Controllers\API;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Validator;
+use Illuminate\Support\Facades\Validator;
 
 use App\Http\Controllers\Controller;
 use App\User;
