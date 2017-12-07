@@ -12,6 +12,14 @@ use App\User;
 use App\Http\Resources\UserResource;
 use App\Http\Resources\UsersCollectionResource;
 
+
+/**
+ * Class UserController
+ * @TODO separate authentication form resource
+ * @TODO create a custom request for the resource controller and the auth controller
+ *
+ * @package App\Http\Controllers\API
+ */
 class UserController extends Controller
 {
     public $successStatus = 200;
@@ -51,7 +59,7 @@ class UserController extends Controller
             return response()->json(['error' => $validator->errors()], 401);
         }
 
-        $input = $request->all();
+        $input = $request->only(['name', 'email', 'password']);
         $input['password'] = bcrypt($input['password']);
         $user = User::create($input);
         $success['token'] = $user->createToken('nuntius_token')->accessToken;
@@ -94,7 +102,7 @@ class UserController extends Controller
             return response()->json(['error' => $validator->errors()], 401);
         }
 
-        $input = $request->all();
+        $input = $request->only(['name', 'email', 'password',]);
         $input['password'] = bcrypt($input['password']);
 
         try {
@@ -125,11 +133,7 @@ class UserController extends Controller
             return response()->json(['error' => $validator->errors()], 401);
         }
 
-        $input = $request->all();
-
-        if (isset($input['password'])) {
-            unset($input['password']);
-        }
+        $input = $request->only(['name', 'email']);
 
         try {
             $user = User::findOrFail($id);
@@ -143,7 +147,47 @@ class UserController extends Controller
         } catch (QueryException $exception) {
             $data = [
                 'success' => false,
-                'message' => 'Can not updated user',
+                'message' => 'Can not update user',
+                'description' => $exception->errorInfo
+            ];
+            return response()->json($data, 401);
+        }
+    }
+
+    /**
+     * update user password
+     *
+     * @param Request $request
+     * @param $id
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function updatePassword(Request $request, $id)
+    {
+        $validator = Validator::make($request->all(), [
+            'password' => 'required',
+            'c_password' => 'required|same:password',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(['error' => $validator->errors()], 401);
+        }
+
+        $input = $request->only(['password']);
+        $input['password'] = bcrypt($input['password']);
+
+        try {
+            $user = User::findOrFail($id);
+            $user->update($input);
+            $data = [
+                'success' => true,
+                'message' => 'User updated successfully',
+                'data' => new UserResource($user)
+            ];
+            return response()->json($data, $this->successStatus);
+        } catch (QueryException $exception) {
+            $data = [
+                'success' => false,
+                'message' => 'Can not update user password',
                 'description' => $exception->errorInfo
             ];
             return response()->json($data, 401);
