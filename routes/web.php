@@ -13,7 +13,7 @@
 use \Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('app');
 });
 
 Route::get('/login', function () {
@@ -23,3 +23,7 @@ Route::get('/login', function () {
 Route::get('/logout', function () {
     return 'logout';
 })->name('logout');
+
+Route::get('/register', function () {
+    return 'register';
+})->name('register');

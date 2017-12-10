@@ -1,4 +1,5 @@
 let mix = require('laravel-mix');
+const LiveReloadPlugin = require('webpack-livereload-plugin');
 
 /*
  |--------------------------------------------------------------------------
@@ -12,4 +13,16 @@ let mix = require('laravel-mix');
  */
 
 mix.js('resources/assets/js/app.js', 'public/js')
-   .sass('resources/assets/sass/app.scss', 'public/css');
+   .sass('resources/assets/sass/app.scss', 'public/css')
+    .extract([
+        'axios',
+        'vue',
+        'vue-router',
+        'element-ui',
+    ])
+    .webpackConfig({
+        plugins: [
+            new LiveReloadPlugin(),
+        ]
+    })
+    .disableNotifications();
