@@ -4,7 +4,7 @@
  * Project: nuntius
  */
 
-namespace Selenkeys\Contacts\App\Http\Controllers;
+namespace Selenkeys\Contacts\App\Http\Controllers\API;
 
 
 use App\Http\Controllers\Controller;

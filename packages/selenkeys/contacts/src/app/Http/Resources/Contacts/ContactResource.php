@@ -9,7 +9,7 @@ namespace Selenkeys\Contacts\App\Http\Resources\Contacts;
 
 use Illuminate\Http\Resources\Json\Resource;
 
-class ControllerResource extends Resource
+class ContactResource extends Resource
 {
     public function toArray($request)
     {
