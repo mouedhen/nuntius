@@ -1,10 +1,10 @@
 # Nuntius
 
-Nuntius is an application for farm services' providers.
+Nuntius is a reporting application for agricultural services providers.
 
 ## Packages
 
-* Contacts : Contacts packages handle contacts list.
+* Contacts : Handle contacts list.
 
 ## Installation
 
@@ -16,5 +16,6 @@ $ php artisan passport:keys # Generate default passeport keys for the applicatio
 ## Credit
 
 @author : Mohamed Chams Eddin Mouedhen <chams-med@hotmail.fr>
+
 @version : 0.0.1
 

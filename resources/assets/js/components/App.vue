@@ -1,6 +1,9 @@
 <template>
     <div>
         <top-menu></top-menu>
+        <transition name="fade">
+            <router-view></router-view>
+        </transition>
     </div>
 </template>
 
