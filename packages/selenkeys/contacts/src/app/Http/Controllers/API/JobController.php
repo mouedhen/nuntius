@@ -106,6 +106,7 @@ class JobController extends Controller
         $data = [
             'code' => 204,
             'message' => 'records deleted successfully',
+            'data' => $id
         ];
         return response()->json($data, 204);
     }

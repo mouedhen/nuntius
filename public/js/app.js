@@ -3711,7 +3711,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8_vue_data_tables___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_8_vue_data_tables__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__routes__ = __webpack_require__(502);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__store__ = __webpack_require__(503);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__store___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_10__store__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__components_App_vue__ = __webpack_require__(504);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__components_App_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_11__components_App_vue__);
 
@@ -3745,7 +3744,7 @@ __WEBPACK_IMPORTED_MODULE_2_vue___default.a.use(__WEBPACK_IMPORTED_MODULE_8_vue_
 __WEBPACK_IMPORTED_MODULE_2_vue___default.a.component('app', __WEBPACK_IMPORTED_MODULE_11__components_App_vue___default.a);
 var app = new __WEBPACK_IMPORTED_MODULE_2_vue___default.a({
     router: __WEBPACK_IMPORTED_MODULE_9__routes__["a" /* default */],
-    store: __WEBPACK_IMPORTED_MODULE_10__store___default.a
+    store: __WEBPACK_IMPORTED_MODULE_10__store__["a" /* default */]
 }).$mount('#app');
 
 /***/ }),
@@ -11839,9 +11838,26 @@ var router = new __WEBPACK_IMPORTED_MODULE_0_vue_router__["default"]({
 
 /***/ }),
 /* 503 */
-/***/ (function(module, exports) {
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue__ = __webpack_require__(21);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vuex__ = __webpack_require__(425);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__modules_contacts_jobs__ = __webpack_require__(525);
 
 
+
+__WEBPACK_IMPORTED_MODULE_0_vue___default.a.use(__WEBPACK_IMPORTED_MODULE_1_vuex__["a" /* default */]);
+
+
+
+/* harmony default export */ __webpack_exports__["a"] = (new __WEBPACK_IMPORTED_MODULE_1_vuex__["a" /* default */].Store({
+    modules: {
+        jobs: __WEBPACK_IMPORTED_MODULE_2__modules_contacts_jobs__["a" /* default */]
+    },
+    strict: true
+}));
 
 /***/ }),
 /* 504 */
@@ -12026,6 +12042,16 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     name: 'app',
     components: {
         TopMenu: __WEBPACK_IMPORTED_MODULE_1__pages_shared_TopMenu_vue___default.a
+    },
+    mounted: function mounted() {
+        var _this = this;
+
+        this.$store.dispatch('fetchJobs').catch(function (error) {
+            _this.$notify.error({
+                title: 'Error',
+                message: 'Error when reading records'
+            });
+        });
     }
 });
 
@@ -12146,7 +12172,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     data: function data() {
         return {
             activeIndex: null,
-            siteName: __WEBPACK_IMPORTED_MODULE_0__config__["a" /* siteName */]
+            siteName: __WEBPACK_IMPORTED_MODULE_0__config__["b" /* siteName */]
         };
     },
 
@@ -12165,8 +12191,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return siteName; });
-/* unused harmony export apiDomain */
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return siteName; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return apiDomain; });
 var apiDomain = Laravel.apiDomain + '/v1';
 var siteName = Laravel.siteName;
 
@@ -12318,6 +12344,252 @@ if (false) {
     require("vue-hot-reload-api")      .rerender("data-v-0a937e7e", module.exports)
   }
 }
+
+/***/ }),
+/* 524 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return FETCH_JOBS; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return FETCH_JOB; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return CREATE_JOB; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "e", function() { return UPDATE_JOB; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return DELETE_JOB; });
+var FETCH_JOBS = 'contacts/jobs/FETCH_JOBS';
+var FETCH_JOB = 'contacts/jobs/FETCH_JOB';
+var CREATE_JOB = 'contacts/jobs/CREATE_JOB';
+var UPDATE_JOB = 'contacts/jobs/UPDATE_JOB';
+var DELETE_JOB = 'contacts/jobs/DELETE_JOB';
+
+/***/ }),
+/* 525 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__actions__ = __webpack_require__(526);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__getters__ = __webpack_require__(528);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__mutation_types__ = __webpack_require__(524);
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+var _mutations;
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+
+
+
+
+
+var initialState = {
+    all: []
+};
+
+var mutations = (_mutations = {}, _defineProperty(_mutations, __WEBPACK_IMPORTED_MODULE_2__mutation_types__["d" /* FETCH_JOBS */], function (state, jobs) {
+    state.all = jobs;
+}), _defineProperty(_mutations, __WEBPACK_IMPORTED_MODULE_2__mutation_types__["c" /* FETCH_JOB */], function (state, job) {
+    var index = state.all.findIndex(function (x) {
+        return x.id === job.id;
+    });
+    if (index === -1) {
+        state.all.push(job);
+    } else {
+        state.all.splice(index, 1, job);
+    }
+}), _defineProperty(_mutations, __WEBPACK_IMPORTED_MODULE_2__mutation_types__["a" /* CREATE_JOB */], function (state, job) {
+    state.all.push(job);
+}), _defineProperty(_mutations, __WEBPACK_IMPORTED_MODULE_2__mutation_types__["e" /* UPDATE_JOB */], function (state, job) {
+    var index = state.all.findIndex(function (x) {
+        return x.id === job.id;
+    });
+    if (index !== -1) {
+        state.all.splice(index, 1, job);
+    }
+}), _defineProperty(_mutations, __WEBPACK_IMPORTED_MODULE_2__mutation_types__["b" /* DELETE_JOB */], function (state, jobID) {
+    state.all = state.all.features.filter(function (x) {
+        return x.id !== jobID;
+    });
+}), _mutations);
+
+/* harmony default export */ __webpack_exports__["a"] = ({
+    state: _extends({}, initialState),
+    actions: __WEBPACK_IMPORTED_MODULE_0__actions__,
+    getters: __WEBPACK_IMPORTED_MODULE_1__getters__,
+    mutations: mutations
+});
+
+/***/ }),
+/* 526 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony export (immutable) */ __webpack_exports__["fetchJobs"] = fetchJobs;
+/* harmony export (immutable) */ __webpack_exports__["fetchJob"] = fetchJob;
+/* harmony export (immutable) */ __webpack_exports__["createJob"] = createJob;
+/* harmony export (immutable) */ __webpack_exports__["updateJob"] = updateJob;
+/* harmony export (immutable) */ __webpack_exports__["deleteJob"] = deleteJob;
+/* harmony export (immutable) */ __webpack_exports__["saveJob"] = saveJob;
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__core_actions__ = __webpack_require__(527);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__mutation_types__ = __webpack_require__(524);
+
+
+
+var defaultUri = 'jobs';
+
+function fetchJobs(_ref) {
+    var commit = _ref.commit;
+
+    return Object(__WEBPACK_IMPORTED_MODULE_0__core_actions__["c" /* fetchAll */])({ commit: commit }, defaultUri, __WEBPACK_IMPORTED_MODULE_1__mutation_types__["d" /* FETCH_JOBS */]);
+}
+
+function fetchJob(_ref2, jobID) {
+    var commit = _ref2.commit;
+
+    return Object(__WEBPACK_IMPORTED_MODULE_0__core_actions__["d" /* fetchOne */])({ commit: commit }, jobID, defaultUri, __WEBPACK_IMPORTED_MODULE_1__mutation_types__["c" /* FETCH_JOB */]);
+}
+
+function createJob(_ref3, job) {
+    var commit = _ref3.commit;
+
+    return Object(__WEBPACK_IMPORTED_MODULE_0__core_actions__["a" /* createOne */])({ commit: commit }, job, defaultUri, __WEBPACK_IMPORTED_MODULE_1__mutation_types__["a" /* CREATE_JOB */]);
+}
+
+function updateJob(_ref4, job) {
+    var commit = _ref4.commit;
+
+    return Object(__WEBPACK_IMPORTED_MODULE_0__core_actions__["f" /* updateOne */])({ commit: commit }, job, defaultUri, __WEBPACK_IMPORTED_MODULE_1__mutation_types__["e" /* UPDATE_JOB */]);
+}
+
+function deleteJob(_ref5, jobID) {
+    var commit = _ref5.commit;
+
+    return Object(__WEBPACK_IMPORTED_MODULE_0__core_actions__["b" /* deleteOne */])({ commit: commit }, jobID, defaultUri, __WEBPACK_IMPORTED_MODULE_1__mutation_types__["b" /* DELETE_JOB */]);
+}
+
+function saveJob(_ref6, _ref7) {
+    var commit = _ref6.commit,
+        state = _ref6.state;
+    var job = _ref7.job;
+
+    return Object(__WEBPACK_IMPORTED_MODULE_0__core_actions__["e" /* saveOne */])({ commit: commit, state: state }, { data: job }, defaultUri, __WEBPACK_IMPORTED_MODULE_1__mutation_types__["a" /* CREATE_JOB */], __WEBPACK_IMPORTED_MODULE_1__mutation_types__["e" /* UPDATE_JOB */]);
+}
+
+/***/ }),
+/* 527 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (immutable) */ __webpack_exports__["c"] = fetchAll;
+/* harmony export (immutable) */ __webpack_exports__["d"] = fetchOne;
+/* harmony export (immutable) */ __webpack_exports__["a"] = createOne;
+/* harmony export (immutable) */ __webpack_exports__["f"] = updateOne;
+/* harmony export (immutable) */ __webpack_exports__["b"] = deleteOne;
+/* harmony export (immutable) */ __webpack_exports__["e"] = saveOne;
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_axios__ = __webpack_require__(170);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_axios___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_axios__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__config__ = __webpack_require__(519);
+
+
+
+function fetchAll(_ref, uri, FETCH_ALL_MUTATION) {
+    var commit = _ref.commit;
+
+    return __WEBPACK_IMPORTED_MODULE_0_axios___default()({
+        method: 'GET',
+        url: __WEBPACK_IMPORTED_MODULE_1__config__["a" /* apiDomain */] + '/' + uri
+    }).then(function (response) {
+        commit(FETCH_ALL_MUTATION, response.data.data);
+        return response.data.data;
+    }).catch(function (error) {
+        return error.response.data;
+    });
+}
+
+function fetchOne(_ref2, dataID, uri, FETCH_ONE_MUTATION) {
+    var commit = _ref2.commit;
+
+    return __WEBPACK_IMPORTED_MODULE_0_axios___default()({
+        method: 'GET',
+        url: __WEBPACK_IMPORTED_MODULE_1__config__["a" /* apiDomain */] + '/' + uri + '/' + dataID
+    }).then(function (response) {
+        commit(FETCH_ONE_MUTATION, response.data.data);
+        return response.data.data;
+    }).catch(function (error) {
+        return error.response.data;
+    });
+}
+
+function createOne(_ref3, data, uri, CREATE_MUTATION) {
+    var commit = _ref3.commit;
+
+    return __WEBPACK_IMPORTED_MODULE_0_axios___default()({
+        method: 'POST',
+        url: __WEBPACK_IMPORTED_MODULE_1__config__["a" /* apiDomain */] + '/' + uri + '/',
+        data: data
+    }).then(function (response) {
+        commit(CREATE_MUTATION, response.data.data);
+        return response.data.data;
+    }).catch(function (error) {
+        return error.response.data;
+    });
+}
+
+function updateOne(_ref4, data, uri, UPDATE_MUTATION) {
+    var commit = _ref4.commit;
+
+    return __WEBPACK_IMPORTED_MODULE_0_axios___default()({
+        method: 'PUT',
+        url: __WEBPACK_IMPORTED_MODULE_1__config__["a" /* apiDomain */] + '/' + uri + '/' + data.id,
+        data: data
+    }).then(function (response) {
+        commit(UPDATE_MUTATION, response.data.data);
+        return response.data.data;
+    }).catch(function (error) {
+        return error.response.data;
+    });
+}
+
+function deleteOne(_ref5, dataID, uri, DELETE_MUTATION) {
+    var commit = _ref5.commit;
+
+    return __WEBPACK_IMPORTED_MODULE_0_axios___default()({
+        method: 'DELETE',
+        url: __WEBPACK_IMPORTED_MODULE_1__config__["a" /* apiDomain */] + '/' + uri + '/' + dataID
+    }).then(function (response) {
+        commit(DELETE_MUTATION, response.data.data);
+        return response.data.data;
+    }).catch(function (error) {
+        return error.response.data;
+    });
+}
+
+function saveOne(_ref6, _ref7, uri, CREATE_MUTATION, UPDATE_MUTATION) {
+    var commit = _ref6.commit,
+        state = _ref6.state;
+    var data = _ref7.data;
+
+    if (data.id !== undefined && data.id !== null) {
+        var index = state.all.findIndex(function (x) {
+            return x.id === data.id;
+        });
+        if (index !== -1) {
+            return updateOne({ commit: commit }, data, uri, UPDATE_MUTATION);
+        }
+        return createOne({ commit: commit }, data, uri, CREATE_MUTATION);
+    }
+    return createOne({ commit: commit }, data, uri, CREATE_MUTATION);
+}
+
+/***/ }),
+/* 528 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getJobs", function() { return getJobs; });
+var getJobs = function getJobs(state) {
+  return state.all;
+};
 
 /***/ })
 ],[199]);

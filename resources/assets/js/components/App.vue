@@ -15,6 +15,15 @@
         name: 'app',
         components: {
             TopMenu
+        },
+        mounted() {
+            this.$store.dispatch('fetchJobs')
+                .catch(error => {
+                    this.$notify.error({
+                        title: 'Error',
+                        message: 'Error when reading records'
+                    });
+                });
         }
     }
 </script>
