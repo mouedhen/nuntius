@@ -12,6 +12,7 @@ Nuntius is a reporting application for agricultural services providers.
 $ composer install
 $ npm install
 $ php artisan passport:keys # Generate default passeport keys for the application
+$ php artisan passport:install
 ```
 ## Credit
 

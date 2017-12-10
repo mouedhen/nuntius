@@ -20,14 +20,15 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Contact extends Model
 {
-    protected $table = ['contacts'];
+    protected $table = 'contacts';
 
     protected $fillable = ['name', 'address', 'zipCode', 'state', 'country'];
 
+    /*
     public function contactable()
     {
         return $this->morphTo();
-    }
+    }*/
 
     public function emails()
     {

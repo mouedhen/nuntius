@@ -25,7 +25,7 @@ class Employee extends Model
 
     public function contact()
     {
-        return $this->morphOne(Contact::class, 'contactable');
+        return $this->belongsTo(Contact::class, 'contact_id');
     }
 
     public function job()
