@@ -11,6 +11,7 @@ Route::group([
         'prefix' => 'v1',
     ], function ($router) {
         Route::apiResources([
+            'emails' => \Selenkeys\Contacts\App\Http\Controllers\API\EmailController::class,
             'contacts' => \Selenkeys\Contacts\App\Http\Controllers\API\ContactController::class,
             'jobs' => \Selenkeys\Contacts\App\Http\Controllers\API\JobController::class,
         ], [

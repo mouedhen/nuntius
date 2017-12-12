@@ -10,6 +10,6 @@ class EmailsTableSeeder extends Seeder
 {
     public function run()
     {
-        factory(Selenkeys\Contacts\App\Models\Email::class, 40)->create();
+        factory(Selenkeys\Contacts\App\Models\Email::class, 80)->create();
     }
 }

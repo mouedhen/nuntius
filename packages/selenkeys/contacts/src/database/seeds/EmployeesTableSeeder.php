@@ -10,6 +10,6 @@ class EmployeesTableSeeder extends Seeder
 {
     public function run()
     {
-        factory(Selenkeys\Contacts\App\Models\Employee::class, 40)->create();
+        factory(Selenkeys\Contacts\App\Models\Employee::class, 20)->create();
     }
 }
