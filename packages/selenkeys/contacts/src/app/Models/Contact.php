@@ -15,6 +15,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property mixed $contactable
  * @property Email[] $emails
  * @property Phone[] $phones
+ * @property Company $company
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
  */
@@ -29,6 +30,16 @@ class Contact extends Model
     {
         return $this->morphTo();
     }*/
+
+    public function company()
+    {
+        return $this->hasOne(Company::class, 'contact_id');
+    }
+
+    public function employee()
+    {
+        return $this->hasOne(Employee::class, 'contact_id');
+    }
 
     public function emails()
     {

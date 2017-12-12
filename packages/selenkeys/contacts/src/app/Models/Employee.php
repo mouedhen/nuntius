@@ -21,7 +21,7 @@ use Illuminate\Database\Eloquent\Model;
 class Employee extends Model
 {
     protected $table = 'employees';
-    protected $fillable = ['contact_id', 'job_id', 'department_id'];
+    protected $fillable = ['contact_id', 'job_id', 'department_id', 'company_id'];
 
     public function contact()
     {
@@ -30,16 +30,16 @@ class Employee extends Model
 
     public function job()
     {
-        return $this->belongsTo(Job::class);
+        return $this->belongsTo(Job::class, 'job_id');
     }
 
     public function department()
     {
-        return $this->belongsTo(Department::class);
+        return $this->belongsTo(Department::class, 'department_id');
     }
 
     public function company()
     {
-        return $this->belongsTo(Company::class);
+        return $this->belongsTo(Company::class, 'company_id');
     }
 }
