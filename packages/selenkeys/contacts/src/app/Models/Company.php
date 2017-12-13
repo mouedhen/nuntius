@@ -7,6 +7,7 @@
 namespace Selenkeys\Contacts\App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Collection;
 
 
 /**
@@ -16,6 +17,8 @@ use Illuminate\Database\Eloquent\Model;
  * @property \Selenkeys\Contacts\App\Models\Employee[] $employees
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
+ * @property \Selenkeys\Contacts\App\Models\Job[] $jobs
+ * @property \Selenkeys\Contacts\App\Models\Department[] $departments
  */
 class Company extends Model
 {

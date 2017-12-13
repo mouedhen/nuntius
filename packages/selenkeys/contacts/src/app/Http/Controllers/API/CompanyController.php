@@ -1,6 +1,6 @@
 <?php
 /**
- * PhoneController.php
+ * CompanyController.php
  * Project: nuntius
  */
 
@@ -12,33 +12,34 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\ResourceCollection;
 use Illuminate\Support\Facades\Validator;
-use Selenkeys\Contacts\App\Http\Resources\Phones\PhoneResource;
-use Selenkeys\Contacts\App\Models\Phone;
+use Selenkeys\Contacts\App\Http\Resources\Companies\CompanyResource;
+use Selenkeys\Contacts\App\Models\Company;
 
-class PhoneController extends Controller
+class CompanyController extends Controller
 {
     protected $rules = [
-        'phoneNumber' => [
-            'required',
-            'regex:/^((?:\+|00)[17](?: |\-)?|(?:\+|00)[1-9]\d{0,2}(?: |\-)?|(?:\+|00)1\-\d{3}(?: |\-)?)?(0\d|\([0-9]{3}\)|[1-9]{0,3})(?:((?: |\-)[0-9]{2}){4}|((?:[0-9]{2}){4})|((?: |\-)[0-9]{3}(?: |\-)[0-9]{4})|([0-9]{7}))$/'
+        'contact_id' => 'required|integer|exist:contacts,id',
+        'taxRegistrationNumber' => [
+            'nullable',
+            'regex:/^\d{7}\w{3}\d{3}$/',
+            'unique:companies'
         ],
-        'contact_id' => 'required|integer|exist:contacts,id'
     ];
 
     public function index()
     {
-        return new ResourceCollection(Phone::all());
+        return new ResourceCollection(Company::all());
     }
 
     public function show($id)
     {
-        return new PhoneResource(Phone::findOrFail($id));
+        return new CompanyResource(Company::findOrFail($id));
     }
 
     public function store(Request $request)
     {
         $fields = [
-            'phoneNumber' => $request->get('phoneNumber'),
+            'taxRegistrationNumber' => $request->get('taxRegistrationNumber'),
             'contact_id' => $request->get('contact_id')
         ];
 
@@ -54,7 +55,7 @@ class PhoneController extends Controller
         $data = [
             'success' => true,
             'message' => 'record created successfully',
-            'data' => new PhoneResource(Phone::create($fields))
+            'data' => new CompanyResource(Company::create($fields))
         ];
 
         return response()->json($data, JsonResponse::HTTP_CREATED);
@@ -63,7 +64,7 @@ class PhoneController extends Controller
     public function update($id, Request $request)
     {
         $fields = [
-            'phoneNumber' => $request->get('phoneNumber'),
+            'taxRegistrationNumber' => $request->get('taxRegistrationNumber'),
             'contact_id' => $request->get('contact_id')
         ];
 
@@ -76,20 +77,20 @@ class PhoneController extends Controller
             ], JsonResponse::HTTP_UNAUTHORIZED);
         }
 
-        $phone = Phone::findOrFail($id);
-        $phone->update($fields);
+        $company = Company::findOrFail($id);
+        $company->update($fields);
 
         $data = [
             'success' => true,
             'message' => 'record created successfully',
-            'data' => new PhoneResource($phone)
+            'data' => new CompanyResource($company)
         ];
         return response()->json($data, JsonResponse::HTTP_ACCEPTED);
     }
 
     public function destroy($id)
     {
-        Phone::findOrFail($id)
+        Company::findOrFail($id)
             ->delete();
         $data = [
             'code' => 204,
