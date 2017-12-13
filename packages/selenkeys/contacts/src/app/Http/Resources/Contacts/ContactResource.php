@@ -8,7 +8,6 @@ namespace Selenkeys\Contacts\App\Http\Resources\Contacts;
 
 
 use Illuminate\Http\Resources\Json\Resource;
-use Selenkeys\Contacts\App\Http\Resources\Emails\SimpleEmailResource;
 
 class ContactResource extends Resource
 {
@@ -16,11 +15,12 @@ class ContactResource extends Resource
     {
         return [
             'id' => $this->id,
-            'name' => $this->address,
+            'name' => $this->name,
+            'address' => $this->address,
             'zipCode' => $this->zipCode,
             'state' => $this->state,
             'country' => $this->country,
-            'emails' => SimpleEmailResource::collection($this->emails),
+            'emails' => Resource::collection($this->emails),
             'phones' => $this->phones,
             'company' => new class ($this->company) extends Resource
             {
@@ -33,7 +33,28 @@ class ContactResource extends Resource
                     ];
                 }
             },
-            'employee' => $this->employee
+            'employee' => new class ($this->employee) extends Resource
+            {
+                public function toArray($request)
+                {
+                    return [
+                        'id' => $this->id,
+                        'job' => $this->job,
+                        'department' => $this->department,
+                        'company' => new class ($this->company) extends Resource
+                        {
+                            public function toArray($request)
+                            {
+                                return [
+                                    'id' => $this->id,
+                                    'contact' => $this->contact,
+                                    'employees' => $this->employees
+                                ];
+                            }
+                        }
+                    ];
+                }
+            }
         ];
     }
 }

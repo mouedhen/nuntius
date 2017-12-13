@@ -1,40 +1,44 @@
 <?php
 /**
- * EmailController.php
+ * PhoneController.php
  * Project: nuntius
  */
 
 namespace Selenkeys\Contacts\App\Http\Controllers\API;
+
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\ResourceCollection;
 use Illuminate\Support\Facades\Validator;
-use Selenkeys\Contacts\App\Http\Resources\Emails\EmailResource;
-use Selenkeys\Contacts\App\Models\Email;
+use Selenkeys\Contacts\App\Http\Resources\Phones\PhoneResource;
+use Selenkeys\Contacts\App\Models\Phone;
 
-class EmailController extends Controller
+class PhoneController extends Controller
 {
     protected $rules = [
-        'email' => 'required|email',
+        'phoneNumber' => [
+            'required',
+            'regex:/^((?:\+|00)[17](?: |\-)?|(?:\+|00)[1-9]\d{0,2}(?: |\-)?|(?:\+|00)1\-\d{3}(?: |\-)?)?(0\d|\([0-9]{3}\)|[1-9]{0,3})(?:((?: |\-)[0-9]{2}){4}|((?:[0-9]{2}){4})|((?: |\-)[0-9]{3}(?: |\-)[0-9]{4})|([0-9]{7}))$/'
+        ],
         'contact_id' => 'required|integer|exist:contacts,id'
     ];
 
     public function index()
     {
-        return new ResourceCollection(Email::all());
+        return new ResourceCollection(Phone::all());
     }
 
     public function show($id)
     {
-        return new EmailResource(Email::findOrFail($id));
+        return new PhoneResource(Phone::findOrFail($id));
     }
 
     public function store(Request $request)
     {
         $fields = [
-            'email' => $request->get('email'),
+            'phoneNumber' => $request->get('phoneNumber'),
             'contact_id' => $request->get('contact_id')
         ];
 
@@ -50,7 +54,7 @@ class EmailController extends Controller
         $data = [
             'success' => true,
             'message' => 'record created successfully',
-            'data' => new EmailResource(Email::create($fields))
+            'data' => new PhoneResource(Phone::create($fields))
         ];
 
         return response()->json($data, JsonResponse::HTTP_CREATED);
@@ -59,7 +63,7 @@ class EmailController extends Controller
     public function update($id, Request $request)
     {
         $fields = [
-            'email' => $request->get('email'),
+            'phoneNumber' => $request->get('phoneNumber'),
             'contact_id' => $request->get('contact_id')
         ];
 
@@ -72,20 +76,20 @@ class EmailController extends Controller
             ], JsonResponse::HTTP_UNAUTHORIZED);
         }
 
-        $email = Email::findOrFail($id);
+        $email = Phone::findOrFail($id);
         $email->update($fields);
 
         $data = [
             'success' => true,
             'message' => 'record created successfully',
-            'data' => new EmailResource($email)
+            'data' => new PhoneResource($email)
         ];
         return response()->json($data, JsonResponse::HTTP_ACCEPTED);
     }
 
     public function destroy($id)
     {
-        Email::findOrFail($id)
+        Phone::findOrFail($id)
             ->delete();
         $data = [
             'code' => 204,

@@ -4,7 +4,10 @@ namespace App\Exceptions;
 
 use Exception;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Database\QueryException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Illuminate\Http\JsonResponse;
+use Symfony\Component\Finder\Exception\AccessDeniedException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class Handler extends ExceptionHandler
@@ -50,14 +53,29 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $exception)
     {
-        if (($exception instanceof ModelNotFoundException ||
-                $exception instanceof NotFoundHttpException) &&
-            $request->wantsJson() ) {
+        if ($exception instanceof ModelNotFoundException ||
+                $exception instanceof NotFoundHttpException) {
             return response()->json([
                 'message' => '404 Resource not found',
-                'code' => 404
-            ], 404);
+                'code' => JsonResponse::HTTP_NOT_FOUND
+            ], JsonResponse::HTTP_NOT_FOUND);
         }
+
+        if ($exception instanceof AccessDeniedException) {
+            return response()->json([
+                'message' => '401 Unauthorized',
+                'code' => JsonResponse::HTTP_UNAUTHORIZED,
+            ], JsonResponse::HTTP_UNAUTHORIZED);
+        }
+
+        if ($exception instanceof QueryException) {
+            return response()->json([
+                'message' => '400 Bad request',
+                'code' => JsonResponse::HTTP_BAD_REQUEST,
+                'description' => $exception->errorInfo
+            ], JsonResponse::HTTP_BAD_REQUEST);
+        }
+
         return parent::render($request, $exception);
     }
 }

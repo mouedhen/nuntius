@@ -24,7 +24,7 @@ class JobResource extends Resource
             'id' => $this->id,
             'name' => $this->name,
             'employees' => $employeesCollectionResource,
-            'created_at' => $this->created_at
+            'created_at' => (string) $this->created_at,
         ];
     }
 }
