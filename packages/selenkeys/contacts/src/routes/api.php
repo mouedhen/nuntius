@@ -17,7 +17,7 @@ Route::group([
             'companies' => \Selenkeys\Contacts\App\Http\Controllers\API\CompanyController::class,
             'jobs' => \Selenkeys\Contacts\App\Http\Controllers\API\JobController::class,
             'employees' => \Selenkeys\Contacts\App\Http\Controllers\API\EmployeeController::class,
-            // 'contacts' => \Selenkeys\Contacts\App\Http\Controllers\API\ContactController::class,
+            'contacts' => \Selenkeys\Contacts\App\Http\Controllers\API\ContactController::class,
         ], [
             'except' => ['create', 'edit',]
         ]);

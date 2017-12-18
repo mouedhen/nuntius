@@ -12,10 +12,11 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $zipCode
  * @property string $state
  * @property string $country
- * @property mixed $contactable
- * @property Email[] $emails
- * @property Phone[] $phones
- * @property Company $company
+ * @property \Selenkeys\Contacts\App\Models\Company $company
+ * @property \Selenkeys\Contacts\App\Models\Particular $particular
+ * @property \Selenkeys\Contacts\App\Models\Employee $employee
+ * @property \Selenkeys\Contacts\App\Models\Email[] $emails
+ * @property \Selenkeys\Contacts\App\Models\Phone[] $phones
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
  */
@@ -25,15 +26,14 @@ class Contact extends Model
 
     protected $fillable = ['name', 'address', 'zipCode', 'state', 'country'];
 
-    /*
-    public function contactable()
-    {
-        return $this->morphTo();
-    }*/
-
     public function company()
     {
         return $this->hasOne(Company::class, 'contact_id');
+    }
+
+    public function particular()
+    {
+        return $this->hasOne(Particular::class, 'contact_id');
     }
 
     public function employee()
