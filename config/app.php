@@ -182,6 +182,7 @@ return [
          * Local Packages Services Providers
          */
         \Selenkeys\Contacts\ContactsServiceProvider::class,
+        \Selenkeys\Fleet\FleetServiceProvider::class,
 
     ],
 

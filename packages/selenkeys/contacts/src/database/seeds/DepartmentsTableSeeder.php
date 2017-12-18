@@ -4,7 +4,6 @@
  * Project: nuntius
  */
 
-
 use Illuminate\Database\Seeder;
 
 class DepartmentsTableSeeder extends Seeder
